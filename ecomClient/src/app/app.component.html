@@ -1,0 +1,21 @@
+<mat-toolbar color="" class="navbar">
+    <span class="navbar-brand">E-commerce</span>
+    <span class="spacer me-3"></span>
+    <button mat-button routerLink="/order"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">
+        Track Order
+    </button>
+    <button mat-button routerLink="/login"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">
+        Login
+    </button>
+    <button mat-button routerLink="/signup"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">
+        Sign up
+    </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
