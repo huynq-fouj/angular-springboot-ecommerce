@@ -1,9 +1,10 @@
 import { Routes } from "@angular/router";
-import { CustomerComponent } from "./customer.component";
+import { HomeComponent } from "../home/home.component";
 
 export const CUSTOMER_ROUTES : Routes = [
     {
         path: "",
-        component: CustomerComponent
+        component: HomeComponent,
+        title: "E-commerce",
     }
 ];
