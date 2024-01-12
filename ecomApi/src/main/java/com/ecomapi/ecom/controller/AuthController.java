@@ -54,6 +54,7 @@ public class AuthController {
             if(optionalUser.isPresent()) {
                 response.getWriter().write(new JSONObject()
                     .put("userId", optionalUser.get().getId())
+                    .put("userFullname", optionalUser.get().getFullname())
                     .put("role", optionalUser.get().getRole())
                     .toString());
                 response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
