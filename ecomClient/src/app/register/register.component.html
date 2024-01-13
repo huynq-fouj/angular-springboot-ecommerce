@@ -94,7 +94,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="Enter your password"
+                        placeholder="At least 8 characters"
                         [ngClass]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="new-password">
@@ -152,7 +152,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="Enter your confirm password"
+                        placeholder="At least 8 characters"
                         [ngClass]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="new-password">

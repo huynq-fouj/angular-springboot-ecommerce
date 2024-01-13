@@ -5,17 +5,14 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
     provideAnimations(),
-    provideAnimations(),
-    provideAnimations(),
     provideHotToastConfig(),
-    provideAnimations(),
-    provideHttpClient(),
-]
+    provideHttpClient(withFetch()),
+  ]
 };

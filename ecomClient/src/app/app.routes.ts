@@ -3,6 +3,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CustomerComponent } from './customer/customer.component';
+import { AdminComponent } from './admin/admin.component';
 
 export const routes: Routes = [
     {
@@ -22,7 +23,8 @@ export const routes: Routes = [
     },
     {
         path: "admin",
-        loadChildren: () => import("./admin/admin.routes").then(m => m.ADMIN_ROUTES)
+        component: AdminComponent,
+        loadChildren: () => import("./router-config/admin.routes").then(m => m.ADMIN_ROUTES)
     },
     {
         path: "**",

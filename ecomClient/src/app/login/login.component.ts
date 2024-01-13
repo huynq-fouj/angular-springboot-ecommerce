@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserStorageService } from '../shared/services/user-storage/user-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -37,14 +38,25 @@ export class LoginComponent {
 
   onSubmit() {
     this.isLoad = true;
+
+    const email = this.loginForm.get("email")?.value;
+    const password = this.loginForm.get("password")?.value;
+    const loginRequest = {email, password};
+
+    const toastLoading = this.toast.loading("Loading...");
     
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.login(loginRequest).subscribe({
       next: (response) => {
-        console.log(response);
+        toastLoading.close();
         this.toast.success(`Hi ${response?.userFullname}!`, { duration: 3000 });
-        this.router.navigateByUrl("/");
+        if(UserStorageService.isAdmin()) {
+          this.router.navigateByUrl("/admin");
+        }else if(UserStorageService.isCustomer()) {
+          this.router.navigateByUrl("/");
+        }
       },
       error: (error) => {
+        toastLoading.close();
         this.toast.error("Login failed!", { duration: 3000 });
       },
       complete: () => {

@@ -32,8 +32,8 @@ export class RegisterComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       fullname: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]],
-      confirmPassword: ["", [Validators.required]]
+      password: ["", [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ["", [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -50,17 +50,22 @@ export class RegisterComponent implements OnInit {
       this.toast.error("Passwords do not match.", { duration: 3000 });
       return;
     }
+
+    const toastLoading = this.toast.loading("Loading...");
     
     this.authService.register(this.signupForm.value).subscribe({
       next: (response) => {
+        toastLoading.close();
         this.toast.success("Sign up successfull!", { duration: 3000 });
         this.router.navigateByUrl("/login");
       },
       error: (error) => {
+        console.log(error);
+        toastLoading.close();
         this.toast.error("Sign up failed! " + error?.error, { duration: 3000 });
       },
       complete: () => {
-
+        console.log("Done");
       }
     }).add(() => {
       this.isLoad = false;
