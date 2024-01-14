@@ -8,14 +8,15 @@ const USER = 'ecom-user';
 })
 export class UserStorageService {
 
+
   public saveToken(token: string) : void {
-    window.localStorage.removeItem(TOKEN);
-    window.localStorage.setItem(TOKEN, token);
+    localStorage.removeItem(TOKEN);
+    localStorage.setItem(TOKEN, token);
   }
 
   public saveUser(user: any) : void {
-    window.localStorage.removeItem(USER);
-    window.localStorage.setItem(USER, JSON.stringify(user));
+    localStorage.removeItem(USER);
+    localStorage.setItem(USER, JSON.stringify(user));
   }
 
   static getToken() : string | null {
@@ -63,8 +64,8 @@ export class UserStorageService {
   }
 
   static signOut() : void {
-    window.localStorage.removeItem(TOKEN);
-    window.localStorage.removeItem(USER);
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem(USER);
   }
 
 }

@@ -1,0 +1,118 @@
+<header class="fixed top-0 z-50 flex items-center w-full h-16 px-5 shadow-lg bg-indigo-400">
+    <div class="flex items-center">
+        <span class="material-symbols-outlined
+            select-none
+            text-white
+            text-4xl
+            cursor-pointer" (click)="toggleSideBar()">
+            menu
+        </span>
+        <a routerLink="/admin" class="flex items-center">
+            <img src="assets/images/logo-header.png" alt="Logo admin page" class="img-logo mx-2 h-7">
+            <span class="logo-label hidden sm:block text-white font-bold text-2xl">Logo</span>
+        </a>
+    </div>
+
+    <div class="flex ms-auto items-center">
+        <div class="notification-nav">
+            <span class="material-symbols-outlined text-3xl text-white select-none cursor-pointer">
+                notifications
+            </span>
+        </div>
+        <div class="user-nav ms-2 relative">
+            <div class="user-button flex items-center cursor-pointer" (click)="isShowUserOptions = !isShowUserOptions">
+                <img [src]="avatarUrl" alt="" class="user-img w-9 h-9 rounded-full object-cover">
+                <span class="user-name text-sm font-semibold ms-2 hidden sm:block text-white">{{ user?.userFullname }}</span>
+            </div>
+            <div class="user-options-dimiss
+                    fixed
+                    z-40
+                    top-0
+                    left-0
+                    w-[100vw]
+                    h-[100vh]"
+                    [ngClass]="isShowUserOptions ? '' : 'hidden'"
+                (click)="isShowUserOptions = false">
+            </div>
+            <div class="user-options
+                absolute
+                right-0
+                top-14
+                min-w-56
+                bg-white
+                shadow-lg
+                z-50"
+                [ngClass]="isShowUserOptions ? '' : 'hidden'">
+                <div class="text-xl
+                    text-center
+                    p-4
+                    border-0
+                    border-b-[1px]">
+                    {{ user?.userFullname }}
+                </div>
+                <ul>
+                    <li>
+                        <a routerLink="/account" 
+                            class="p-3
+                                flex
+                                items-center
+                                text-black text-sm
+                                hover:bg-gray-100
+                                transition
+                                w-full
+                                text-left
+                                border-0
+                                border-b-[1px]">
+                            <span class="material-symbols-outlined me-1">person</span>Thông tin cá nhân
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account-setting"
+                            class="p-3
+                                flex
+                                items-center
+                                text-black
+                                text-sm
+                                hover:bg-gray-100
+                                transition
+                                w-full
+                                text-left
+                                border-0
+                                border-b-[1px]">
+                            <span class="material-symbols-outlined me-1">settings</span>Cài đặt
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/help" class="p-3
+                            flex
+                            items-center
+                            text-black
+                            text-sm
+                            hover:bg-gray-100
+                            transition
+                            w-full
+                            text-left
+                            border-0
+                            border-b-[1px]">
+                            <span class="material-symbols-outlined me-1">help</span>Cần giúp đỡ
+                        </a>
+                    </li>
+                    <li>
+                        <button (click)="tryLogOut()"
+                            class="p-3
+                                flex
+                                items-center
+                                text-black
+                                text-sm
+                                hover:bg-gray-100
+                                transition
+                                w-full
+                                text-left">
+                            <span class="material-symbols-outlined me-1">logout</span>Đăng xuất
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

@@ -4,17 +4,18 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AdminComponent } from './admin/admin.component';
+import { HomeComponent } from './customer/home/home.component';
 
 export const routes: Routes = [
     {
         path: "login",
         component: LoginComponent,
-        title: "Login"
+        title: "Đăng nhập"
     },
     {
         path: "signup",
         component: RegisterComponent,
-        title: "Sign Up"
+        title: "Đăng ký"
     },
     {
         path: "",
@@ -24,11 +25,11 @@ export const routes: Routes = [
     {
         path: "admin",
         component: AdminComponent,
-        loadChildren: () => import("./router-config/admin.routes").then(m => m.ADMIN_ROUTES)
+        loadChildren: () => import("./admin/admin.routes").then(m => m.ADMIN_ROUTES)
     },
     {
         path: "**",
         component: PageNotFoundComponent,
-        title: "Page not found"
+        title: "Trang không tồn tại"
     }
 ];

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../shared/services/auth/auth.service';
 
@@ -12,6 +12,7 @@ import { AuthService } from '../shared/services/auth/auth.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      fullname: ["", [Validators.required]],
+      fullname: ["", [Validators.required, Validators.minLength(3)]],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(8)]],
       confirmPassword: ["", [Validators.required, Validators.minLength(8)]]
@@ -60,13 +61,10 @@ export class RegisterComponent implements OnInit {
         this.router.navigateByUrl("/login");
       },
       error: (error) => {
-        console.log(error);
         toastLoading.close();
         this.toast.error("Sign up failed! " + error?.error, { duration: 3000 });
       },
-      complete: () => {
-        console.log("Done");
-      }
+      complete: () => {}
     }).add(() => {
       this.isLoad = false;
     });

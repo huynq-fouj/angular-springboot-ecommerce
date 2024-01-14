@@ -1,5 +1,5 @@
 <div class="flex justify-center items-center min-h-screen bg-slate-100">
-    <div class="p-6 max-w-xs sm:max-w-sm bg-white rounded-xl shadow-lg">
+    <div class="p-6 pb-4 max-w-xs sm:max-w-sm bg-white rounded-xl shadow-lg">
         <h2 class="text-center font-bold my-4 block">Login</h2>
         <form [formGroup]="loginForm">
             <!-- Email field -->
@@ -25,7 +25,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="Enter your email"
+                        placeholder="Nhập email"
                         [ngClass]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="email">
@@ -35,12 +35,12 @@
                         text-xs
                         absolute
                         mt-0.5">
-                    Please enter a valid email.
+                    Vui lòng nhập email hợp lệ.
                 </div>
             </div>
             <!-- Password field -->
             <div class="mb-4">
-                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Mật khẩu</label>
                 <div class="relative mt-2 rounded-md shadow-sm">
                     <input type="{{hiddePassword ? 'password' : 'text'}}" formControlName="password" id="password"
                         class="block
@@ -62,12 +62,12 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="At least 8 characters"
+                        placeholder="Nhập mật khẩu"
                         [ngClass]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="new-password">
                     <div class="absolute inset-y-0 right-0 flex items-center">
-                        <button (click)="tooglePasswordVisibility()"
+                        <div (click)="tooglePasswordVisibility()"
                             class="h-full
                                 rounded-md
                                 border-0
@@ -76,15 +76,13 @@
                                 items-center
                                 p-2
                                 text-gray-500
-                                focus:ring-2
-                                focus:ring-inset
-                                focus:ring-indigo-600
-                                focus:outline-none
+                                cursor-pointer
+                                select-none
                                 sm:text-sm">
                             <span class="material-symbols-outlined">
                                 {{hiddePassword ? 'visibility' : 'visibility_off'}}
                             </span>
-                        </button>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
@@ -92,7 +90,7 @@
                         text-xs
                         absolute
                         mt-0.5">
-                    Please enter a valid password.
+                    Vui lòng nhập mật khẩu hợp lệ.
                 </div>
             </div>
             <div class="flex justify-center pt-2">
@@ -108,9 +106,10 @@
                         text-white"
                     [ngClass]="(loginForm.invalid || isLoad) ? 'bg-indigo-400 cursor-not-allowed' : ''"
                     [disabled]="loginForm.invalid || isLoad">
-                    Login
+                    Đăng nhập
                 </button>
             </div>
         </form>
+        <p class="block text-center pt-3">Bạn chưa có tài khoản? <a routerLink="/signup" class="text-indigo-400 font-semibold hover:underline hover:text-indigo-500 transition-all">Đăng ký</a></p>
     </div>
 </div>

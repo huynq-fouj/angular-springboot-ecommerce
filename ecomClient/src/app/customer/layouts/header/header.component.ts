@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
-import { UserStorageService } from '../../shared/services/user-storage/user-storage.service';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { UserStorageService } from '../../../shared/services/user-storage/user-storage.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
     RouterModule,
     RouterLink,
     RouterLinkActive
@@ -20,17 +19,26 @@ export class HeaderComponent implements OnInit {
 
   isCustomerLogin : boolean = UserStorageService.isCustomer();
   isAdminLogin : boolean = UserStorageService.isAdmin();
+  user : any;
+  avatarUrl = "./assets/images/profile-img";
 
   constructor(
     private router : Router
   ) {}
 
   ngOnInit(): void {
+
     this.router.events.subscribe(event => {
       this.isCustomerLogin = UserStorageService.isCustomer();
       this.isAdminLogin = UserStorageService.isAdmin();
     });
-    console.log(this.isAdminLogin, this.isCustomerLogin);
+
+    this.user = UserStorageService.getUser();
+    if(this.user?.image) {
+      this.avatarUrl = this.user?.image;
+    }
+    console.log(this.avatarUrl);
+
   }
 
   tryLogOut() {

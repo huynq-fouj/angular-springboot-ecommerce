@@ -1,9 +1,9 @@
 <div class="flex justify-center items-center min-h-screen bg-slate-100">
-    <div class="p-6 max-w-xs sm:max-w-sm bg-white rounded-xl shadow-lg">
-        <h2 class="text-center font-bold my-4 block">Sign Up</h2>
+    <div class="p-6 pb-3 max-w-xs sm:max-w-sm bg-white rounded-xl shadow-lg">
+        <h2 class="text-center font-bold my-4 block">Đăng ký</h2>
         <form [formGroup]="signupForm">
             <div class="mb-4">
-                <label for="fullname" class="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
+                <label for="fullname" class="block text-sm font-medium leading-6 text-gray-900">Tên đầy đủ</label>
                 <div class="relative mt-2 rounded-md shadow-sm">
                     <input type="text" formControlName="fullname" id="fullname"
                         class="block
@@ -24,7 +24,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="Enter your fullname"
+                        placeholder="Nhập tên đầy đủ"
                         [ngClass]="signupForm.get('fullname')?.invalid && signupForm.get('fullname')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required>
                 </div>
@@ -33,7 +33,7 @@
                         text-xs
                         mt-0.5
                         absolute">
-                        Please enter a valid full name.
+                        Vui lòng nhập tên hợp lệ.
                     </div>
             </div>
             <div class="mb-4">
@@ -58,7 +58,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="Enter your email"
+                        placeholder="Nhập email"
                         [ngClass]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="email">
@@ -68,11 +68,11 @@
                         text-xs
                         absolute
                         mt-0.5">
-                    Please enter a valid email.
+                    Vui lòng nhập email hợp lệ.
                 </div>
             </div>
             <div class="mb-4">
-                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Mật khẩu</label>
                 <div class="relative mt-2 rounded-md shadow-sm">
                     <input type="{{hiddePassword ? 'password' : 'text'}}" formControlName="password" id="password"
                         class="block
@@ -94,7 +94,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="At least 8 characters"
+                        placeholder="Ít nhất 8 ký tự"
                         [ngClass]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="new-password">
@@ -124,11 +124,11 @@
                         text-xs
                         absolute
                         mt-0.5">
-                    Please enter a valid password.
+                    Vui lòng nhập mật khẩu hợp lệ.
                 </div>
             </div>
             <div class="mb-4">
-                <label for="confirmPassword" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+                <label for="confirmPassword" class="block text-sm font-medium leading-6 text-gray-900">Xác nhận mật khẩu</label>
                 <div class="relative mt-2 rounded-md shadow-sm">
                     <input type="{{hiddePassword ? 'password' : 'text'}}"
                         formControlName="confirmPassword"
@@ -152,7 +152,7 @@
                             focus:outline-none
                             sm:text-sm
                             sm:leading-6"
-                        placeholder="At least 8 characters"
+                        placeholder="Ít nhất 8 ký tự"
                         [ngClass]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched ? 'placeholder:text-red-500 ring-red-500' : ''"
                         required
                         autocomplete="new-password">
@@ -182,7 +182,7 @@
                         text-xs
                         absolute
                         mt-0.5">
-                    Please enter a valid confirm password.
+                    Vui lòng nhập mật khẩu xác nhận hợp lệ.
                 </div>
             </div>
             <div class="flex justify-center pt-2">
@@ -198,9 +198,10 @@
                         text-white"
                     [ngClass]="(signupForm.invalid || isLoad) ? 'bg-indigo-400 cursor-not-allowed' : ''"
                     [disabled]="signupForm.invalid || isLoad">
-                    Sign Up
+                    Đăng ký
                 </button>
             </div>
         </form>
+        <p class="block text-center pt-3">Bạn đã có tài khoản? <a routerLink="/login" class="text-indigo-400 font-semibold hover:underline hover:text-indigo-500 transition-all">Đăng nhập</a></p>
     </div>
 </div>
