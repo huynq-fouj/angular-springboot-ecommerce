@@ -1,8 +1,77 @@
-<aside class="w-72 pt-16 fixed top-0 left-0">
-    <ul>
-        <li><a routerLink="/admin" routerLinkActive="text-sky-500" [routerLinkActiveOptions]="{ exact: true }">Dasboard</a></li>
-        <li><a routerLink="/admin/users" routerLinkActive="text-sky-500" [routerLinkActiveOptions]="{ exact: true }">Users</a></li>
-        <li><a routerLink="/admin/category" routerLinkActive="text-sky-500" [routerLinkActiveOptions]="{ exact: true }">Categories</a></li>
-        <li><a routerLink="/admin/products" routerLinkActive="text-sky-500" [routerLinkActiveOptions]="{ exact: true }">Products</a></li>
-    </ul>
+<aside class="w-72
+    h-lvh
+    overflow-y-auto
+    pt-14
+    fixed
+    top-0
+    z-40
+    bg-white
+    transition-all
+    shadow-[0px_0px_20px_rgba(0,0,0,0.2)]" [ngClass]="isSidebarShow ? '-left-72 md:left-0' : 'left-0 md:-left-72'">
+    @for (item of sidebarLinks; track item.label; let index = $index) {
+    <cdk-accordion-item #accordionItem="cdkAccordionItem" class="w-full" role="button" tabindex="0"
+        [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+        [attr.aria-controls]="'accordion-body-' + index">
+        <div class="text-base w-full p-2 py-1" (click)="accordionItem.toggle()">
+            <a [routerLink]="item.notRedirect ? null : item.url"
+                class="flex justify-between items-center p-2 pl-3 rounded-lg hover:bg-gray-200 hover:text-indigo-500"
+                routerLinkActive="bg-gray-200 text-indigo-500"
+                [routerLinkActiveOptions]="{ exact : true }">
+                <span class="flex items-center">
+                    @if (item.googleIcon) {
+                        <span class="material-symbols-rounded text-lg me-2">
+                            {{ item.googleIcon }}
+                        </span>
+                    } @else {
+                        {{ item.icon }}
+                    }
+                    {{ item.label }}
+                </span>
+                @if (item.children && item.children.length > 0) {
+                    <span class="material-symbols-rounded
+                        select-none
+                        transition-all
+                        duration-300"
+                        [ngClass]="accordionItem.expanded ? 'rotate-180' : ''">
+                        expand_more
+                    </span>
+                }
+            </a>
+        </div>
+        @if(item.children && item.children.length > 0) {
+            <ul class="pl-3 pr-0 w-full transition-all duration-300 overflow-hidden"
+                role="region"
+                [ngClass]="accordionItem.expanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'"
+                [attr.id]="'accordion-body-' + index"
+                [attr.aria-labelledby]="'accordion-header-' + index">
+                @for (itemChild of item.children; track itemChild.label) {
+                    <li class="text-base w-full p-2 py-1">
+                        <a [routerLink]="itemChild.url"
+                            class="flex
+                                justify-between
+                                items-center
+                                p-2
+                                pl-3
+                                rounded-lg
+                                hover:bg-gray-200
+                                hover:text-indigo-500"
+                            routerLinkActive="bg-gray-200 text-indigo-500"
+                            [routerLinkActiveOptions]="{ exact : true }">
+                            <span class="flex items-center">
+                                @if (itemChild.googleIcon) {
+                                    <span class="material-symbols-rounded text-lg me-2">
+                                        {{ itemChild.googleIcon }}
+                                    </span>
+                                } @else {
+                                    {{ itemChild.icon }}
+                                }
+                                {{itemChild.label}}
+                            </span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </cdk-accordion-item>
+    }
 </aside>

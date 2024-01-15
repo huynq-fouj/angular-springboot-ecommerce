@@ -53,7 +53,6 @@ export class RegisterComponent implements OnInit {
     }
 
     const toastLoading = this.toast.loading("Loading...");
-    
     this.authService.register(this.signupForm.value).subscribe({
       next: (response) => {
         toastLoading.close();

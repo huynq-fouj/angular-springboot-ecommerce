@@ -1,6 +1,8 @@
-<app-admin-header></app-admin-header>
-<app-admin-side-bar></app-admin-side-bar>
-<main class="pt-16 ml-72">
+<app-admin-header (isOpenSidebar)="isSidebarShow = !isSidebarShow"></app-admin-header>
+<app-admin-side-bar [isSidebarShow]="isSidebarShow"></app-admin-side-bar>
+<main class="p-2 sm:p-5 pt-20 sm:pt-20 transition-all" [ngClass]="isSidebarShow ? 'md:ml-72' : 'md:ml-0'">
     <router-outlet></router-outlet>
 </main>
-<app-admin-footer></app-admin-footer>
+<app-admin-footer [isSidebarShow]="isSidebarShow"></app-admin-footer>
+
+<div class="admin-background absolute top-0 left-0 w-full h-[100vh] -z-10 bg-slate-200"></div>
