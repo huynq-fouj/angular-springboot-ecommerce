@@ -104,8 +104,8 @@
                         focus:ring-indigo-400
                         focus:outline-none
                         text-white"
-                    [ngClass]="(loginForm.invalid || isLoad) ? 'bg-indigo-400 cursor-not-allowed' : ''"
-                    [disabled]="loginForm.invalid || isLoad">
+                    [ngClass]="(isLoad) ? 'bg-indigo-400 cursor-not-allowed' : ''"
+                    [disabled]="isLoad">
                     Đăng nhập
                 </button>
             </div>

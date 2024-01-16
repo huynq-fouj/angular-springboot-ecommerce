@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { UserStorageService } from '../../../shared/services/user-storage/user-storage.service';
 
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   isCustomerLogin : boolean = UserStorageService.isCustomer();
   isAdminLogin : boolean = UserStorageService.isAdmin();
   user : any;
-  avatarUrl = "./assets/images/profile-img";
+  avatarUrl = "./assets/images/profile-img.jpg";
 
   constructor(
     private router : Router
@@ -37,8 +37,6 @@ export class HeaderComponent implements OnInit {
     if(this.user?.image) {
       this.avatarUrl = this.user?.image;
     }
-    console.log(this.avatarUrl);
-
   }
 
   tryLogOut() {

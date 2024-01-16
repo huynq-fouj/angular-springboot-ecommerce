@@ -1,4 +1,5 @@
-<aside class="w-72
+<aside class="sidebar
+    w-72
     h-lvh
     overflow-y-auto
     pt-14
@@ -6,8 +7,7 @@
     top-0
     z-40
     bg-white
-    transition-all
-    shadow-[0px_0px_20px_rgba(0,0,0,0.2)]" [ngClass]="isSidebarShow ? '-left-72 md:left-0' : 'left-0 md:-left-72'">
+    transition-all" [ngClass]="isSidebarShow ? '-left-72 md:left-0 md:shadow-[0px_0px_20px_rgba(0,0,0,0.2)]' : 'left-0 shadow-[0px_0px_20px_rgba(0,0,0,0.2)] md:-left-72 md:shadow-none'">
     @for (item of sidebarLinks; track item.label; let index = $index) {
     <cdk-accordion-item #accordionItem="cdkAccordionItem" class="w-full" role="button" tabindex="0"
         [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
@@ -16,7 +16,8 @@
             <a [routerLink]="item.notRedirect ? null : item.url"
                 class="flex justify-between items-center p-2 pl-3 rounded-lg hover:bg-gray-200 hover:text-indigo-500"
                 routerLinkActive="bg-gray-200 text-indigo-500"
-                [routerLinkActiveOptions]="{ exact : true }">
+                [routerLinkActiveOptions]="{ exact : true }"
+                [ngClass]="false ? 'bg-gray-200 text-indigo-500' : ''">
                 <span class="flex items-center">
                     @if (item.googleIcon) {
                         <span class="material-symbols-rounded text-lg me-2">
@@ -75,3 +76,6 @@
     </cdk-accordion-item>
     }
 </aside>
+<div class="fixed z-30 bg-black opacity-25 w-lvw h-lvh top-0 left-0"
+    [ngClass]="isSidebarShow ? 'hidden' : 'block md:hidden'"
+    (click)="toggleSideBar()"></div>

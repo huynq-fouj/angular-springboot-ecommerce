@@ -3,25 +3,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { SignupRequest } from '../../interface/SignupRequest';
+import { LoginRequest } from '../../interface/LoginRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
+  apiUrl: string = environment.apiUrl;
+
   constructor(
     private http : HttpClient,
     private userStorageService : UserStorageService
     ) { }
 
-  register(signupRequest : any) : Observable<any> {
-    return this.http.post(environment.apiUrl + "signup", signupRequest);
+  register(signupRequest : SignupRequest) : Observable<any> {
+    return this.http.post(`${this.apiUrl}signup`, signupRequest);
   }
 
-  login(loginRequest : any) : Observable<any> {
+  login(loginRequest : LoginRequest) : Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const body = loginRequest;
-    return this.http.post(environment.apiUrl + "authenticate", body, {headers, observe: "response"}).pipe(
+    return this.http.post(`${this.apiUrl}authenticate`, body, {headers, observe: "response"}).pipe(
       map((res) => {
         const token = res.headers.get('Authorization')?.substring(7);
         const user = res.body;

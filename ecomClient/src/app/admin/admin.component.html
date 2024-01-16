@@ -1,5 +1,5 @@
 <app-admin-header (isOpenSidebar)="isSidebarShow = !isSidebarShow"></app-admin-header>
-<app-admin-side-bar [isSidebarShow]="isSidebarShow"></app-admin-side-bar>
+<app-admin-side-bar [isSidebarShow]="isSidebarShow" (isCloseSideBar)="isSidebarShow = !isSidebarShow"></app-admin-side-bar>
 <main class="p-2 sm:p-5 pt-20 sm:pt-20 transition-all" [ngClass]="isSidebarShow ? 'md:ml-72' : 'md:ml-0'">
     <router-outlet></router-outlet>
 </main>

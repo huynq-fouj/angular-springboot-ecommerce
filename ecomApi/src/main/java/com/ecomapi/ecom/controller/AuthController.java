@@ -17,6 +17,7 @@ import com.ecomapi.ecom.dto.UserDto;
 import com.ecomapi.ecom.entity.User;
 import com.ecomapi.ecom.repository.UserRepository;
 import com.ecomapi.ecom.services.auth.AuthService;
+import com.ecomapi.ecom.utils.JerichoUtil;
 import com.ecomapi.ecom.utils.JwtUtil;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,7 +47,7 @@ public class AuthController {
                 authenticationRequest.getEmail(),
                 authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Incorrect username or password");
+            throw new BadCredentialsException("Email hoặc mật khẩu không đúng");
         } finally {
             final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
             Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
@@ -67,8 +68,9 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> signupUser(@RequestBody SignupRequest signupRequest) {
         if(authService.hasUserWithEmail(signupRequest.getEmail())) {
-            return new ResponseEntity<>("User already exists!", HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("Email đã tồn tại!", HttpStatus.NOT_ACCEPTABLE);
         }
+        signupRequest.setFullname(JerichoUtil.encode(signupRequest.getFullname()));
         UserDto userDto = authService.createUser(signupRequest);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }

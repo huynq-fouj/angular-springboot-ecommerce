@@ -1,3 +1,18 @@
-<footer class="transition-all" [ngClass]="isSidebarShow ? 'md:ml-72' : 'md:ml-0'">
-    footer
+<footer class="flex
+    flex-col
+    justify-center
+    items-center
+    p-5
+    border-0
+    border-t-[1px]
+    border-gray-700
+    transition-all"
+    [ngClass]="isSidebarShow ? 'md:ml-72' : 'md:ml-0'">
+    <div class="copyright">
+        &copy; Copyright <strong><span>E-commerce</span></strong>
+    </div>
+    <div class="credits">
+        Designed by 
+        <span class="text-orange-500">Q</span>Huy.
+    </div>
 </footer>

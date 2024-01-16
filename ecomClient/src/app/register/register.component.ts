@@ -44,24 +44,25 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.isLoad = true;
-    const password = this.signupForm.get("password")?.value;
-    const confirmPassword = this.signupForm.get("confirmPassword")?.value;
+
+    const { password, confirmPassword } = this.signupForm.value;
+
     if(password !== confirmPassword) {
       this.isLoad = false;
-      this.toast.error("Passwords do not match.", { duration: 3000 });
+      this.toast.error("Mật khẩu xác nhận không khớp.", { duration: 3000 });
       return;
     }
 
-    const toastLoading = this.toast.loading("Loading...");
+    const toastLoading = this.toast.loading("Đang xử lý...");
     this.authService.register(this.signupForm.value).subscribe({
       next: (response) => {
         toastLoading.close();
-        this.toast.success("Sign up successfull!", { duration: 3000 });
+        this.toast.success("Đang ký thành công!", { duration: 3000 });
         this.router.navigateByUrl("/login");
       },
       error: (error) => {
         toastLoading.close();
-        this.toast.error("Sign up failed! " + error?.error, { duration: 3000 });
+        this.toast.error("Đăng ký thất bại! " + error?.error, { duration: 3000 });
       },
       complete: () => {}
     }).add(() => {

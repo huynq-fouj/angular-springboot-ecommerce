@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
-import { SIDEBAR_LINKS, SidebarLink } from './sidebar.links';
+import { SIDEBAR_LINKS, SidebarLink } from '../../sidebar.links';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -19,6 +19,11 @@ import { SIDEBAR_LINKS, SidebarLink } from './sidebar.links';
 export class AdminSideBarComponent {
 
   @Input() isSidebarShow !: boolean;
+  @Output() isCloseSideBar = new EventEmitter<boolean>();
   sidebarLinks : Array<SidebarLink> = SIDEBAR_LINKS;
+
+  toggleSideBar() {
+    this.isCloseSideBar.emit();
+  }
 
 }

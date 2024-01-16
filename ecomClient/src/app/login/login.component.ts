@@ -39,25 +39,18 @@ export class LoginComponent {
   onSubmit() {
     this.isLoad = true;
 
-    const email = this.loginForm.get("email")?.value;
-    const password = this.loginForm.get("password")?.value;
-    const loginRequest = {email, password};
+    const loginRequest = this.loginForm.value;
 
-    const toastLoading = this.toast.loading("Loading...");
+    const toastLoading = this.toast.loading("Đang xử lý...");
     
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         toastLoading.close();
-        this.toast.success(`Hi ${response?.userFullname}!`, { duration: 3000 });
-        if(UserStorageService.isAdmin()) {
-          this.router.navigateByUrl("/admin");
-        }else if(UserStorageService.isCustomer()) {
-          this.router.navigateByUrl("/");
-        }
+        this.handleLoginSuccess(response);
       },
       error: (error) => {
         toastLoading.close();
-        this.toast.error("Login failed!", { duration: 3000 });
+        this.handleLoginError(error);
       },
       complete: () => {
 
@@ -66,6 +59,23 @@ export class LoginComponent {
       this.isLoad = false;
     });
 
+  }
+
+  private handleLoginSuccess(response: any): void {
+    this.toast.success(`Chào ${response?.userFullname}!`, { duration: 3000 });
+    this.redirectBasedOnUserRole();
+  }
+  
+  private handleLoginError(error: any): void {
+    this.toast.error("Đăng nhập thất bại!", { duration: 3000 });
+  }
+  
+  private redirectBasedOnUserRole(): void {
+    if (UserStorageService.isAdmin()) {
+      this.router.navigateByUrl("/admin");
+    } else if (UserStorageService.isCustomer()) {
+      this.router.navigateByUrl("/");
+    }
   }
 
 }

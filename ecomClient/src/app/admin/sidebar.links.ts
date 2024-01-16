@@ -48,5 +48,5 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
     {
         url: '/admin/contacts',
         label: 'Liên hệ'
-    }
+    },
 ]
