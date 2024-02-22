@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { UserStorageService } from '../../../shared/services/user-storage/user-storage.service';
+import { DecodeHtmlEntitiesPipe } from "../../../shared/pipes/decode-html-entities.pipe";
 
 @Component({
     selector: 'app-admin-header',
@@ -13,6 +14,7 @@ import { UserStorageService } from '../../../shared/services/user-storage/user-s
         RouterModule,
         RouterLink,
         RouterLinkActive,
+        DecodeHtmlEntitiesPipe,
     ]
 })
 export class AdminHeaderComponent {

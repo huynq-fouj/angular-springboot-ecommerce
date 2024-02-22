@@ -19,6 +19,8 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 
     private final String SECRET = "413F4428472B4B62506Q5U6A5N6G597H73U36Y763979244226452948404D6351";
+    private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 30;
+    private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24 * 7;
 
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
@@ -30,7 +32,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 30))//Tương đương 30 phút
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))//Tương đương 30 phút
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -63,7 +65,7 @@ public class JwtUtil {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && isTokenExpired(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
 }

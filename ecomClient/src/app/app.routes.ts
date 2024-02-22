@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AdminComponent } from './admin/admin.component';
-import { HomeComponent } from './customer/home/home.component';
+import { HomeComponent } from './customer/components/home/home.component';
 
 export const routes: Routes = [
     {

@@ -1,0 +1,56 @@
+<div class="p-5 bg-white rounded-lg">
+    <h2>Thêm sản phẩm mới</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 file-upload-container">
+            <div class="image-preview">
+                <div class="image-container">
+                    @if(selectedFile) {
+                        <img [src]="imagePreview" alt="">
+                    }
+                </div>
+            </div>
+            <label class="">
+                <span>Chọn file</span>
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+                <mat-icon>attach_file</mat-icon>
+            </label>
+        </div>
+        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+            <label for="categorySelection" class="font-bold sm:w-40">Chọn thể loại</label>
+            <select formControlName="category_id"
+                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                id="categorySelection">
+                <option [value]="0">Vui lòng chọn</option>
+                @for (item of categories; track item.id) {
+                    <option [value]="item.id" [innerHTML]="item.name | decodeHtmlEntities"></option>
+                }
+            </select>
+        </div>
+        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+            <label for="productName" class="font-bold sm:w-40">Tên sản phẩm</label>
+            <input type="text"
+                formControlName="name"
+                id="productName"
+                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+        </div>
+        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+            <label for="productPrice" class="font-bold sm:w-40">Đơn giá</label>
+            <input type="text"
+                formContName="price"
+                id="productPrice"
+                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+        </div>
+        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+            <label for="productDescription" class="font-bold sm:w-40">Mô tả</label>
+            <textarea
+                formControlName="description"
+                id="productDescription"
+                placeholder="Nội dung"
+                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                rows="5"></textarea>
+        </div>
+        <div class="mb-3">
+            <button mat-raised-button color="primary" type="submit">Thêm mới</button>
+        </div>
+    </form>
+</div>

@@ -44,4 +44,14 @@ public class SimpleCrosFilter implements Filter {
         
     }
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Your initialization code (if needed)
+    }
+
+    @Override
+    public void destroy() {
+        // Cleanup code (if needed)
+    }
+
 }

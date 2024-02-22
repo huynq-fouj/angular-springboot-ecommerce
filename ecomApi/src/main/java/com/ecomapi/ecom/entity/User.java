@@ -1,5 +1,7 @@
 package com.ecomapi.ecom.entity;
 
+import java.sql.Date;
+
 import com.ecomapi.ecom.enums.UserRole;
 
 import jakarta.persistence.*;
@@ -14,6 +16,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String username;
+
     private String email;
 
     private String password;
@@ -25,5 +29,11 @@ public class User {
     private UserRole role;
 
     private String img;
+
+    private boolean deleted;
+
+    private Date created_at;
+
+    private Date updated_at;
 
 }

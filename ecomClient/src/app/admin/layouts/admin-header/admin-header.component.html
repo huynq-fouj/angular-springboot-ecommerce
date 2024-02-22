@@ -22,7 +22,15 @@
         <div class="user-nav ms-2 relative">
             <div class="user-button flex items-center cursor-pointer" (click)="isShowUserOptions = !isShowUserOptions">
                 <img [src]="avatarUrl" alt="" class="user-img w-9 h-9 rounded-full object-cover">
-                <span class="user-name text-sm font-semibold ms-2 hidden sm:block text-white">{{ user?.userFullname }}</span>
+                <span class="user-name
+                    text-sm
+                    font-semibold
+                    ms-2
+                    hidden
+                    sm:block
+                    text-white"
+                    [innerHTML]="user?.userFullname | decodeHtmlEntities">
+                </span>
             </div>
             <div class="user-options-dimiss
                     fixed
@@ -47,8 +55,8 @@
                     text-center
                     p-4
                     border-0
-                    border-b-[1px]">
-                    {{ user?.userFullname }}
+                    border-b-[1px]"
+                    [innerHTML]="user?.userFullname | decodeHtmlEntities">
                 </div>
                 <ul>
                     <li>

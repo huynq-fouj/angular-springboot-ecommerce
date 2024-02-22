@@ -1,9 +1,11 @@
 import { Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { UsersComponent } from "./users/users.component";
-import { ProductsComponent } from "./products/products.component";
-import { CategoriesComponent } from "./products/categories/categories.component";
-import { ProductListComponent } from "./products/product-list/product-list.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { UserComponent } from "./components/user/user.component";
+import { ProductComponent } from "./components/product/product.component";
+import { ProductListComponent } from "./components/product/components/product-list/product-list.component";
+import { CategoryComponent } from "./components/category/category.component";
+import { AddProductComponent } from "./components/product/components/add-product/add-product.component";
+
 
 export const ADMIN_ROUTES : Routes = [
     {
@@ -12,12 +14,13 @@ export const ADMIN_ROUTES : Routes = [
         title: "Dashboard",
     },
     {
-        path: "users",
-        component: UsersComponent,
+        path: "user",
+        component: UserComponent,
+        title: "Người dùng"
     },
     {
-        path: "products",
-        component: ProductsComponent,
+        path: "product",
+        component: ProductComponent,
         children: [
             {
                 path: "",
@@ -25,10 +28,15 @@ export const ADMIN_ROUTES : Routes = [
                 title: "Danh sách sản phẩm"
             },
             {
-                path: "categories",
-                component: CategoriesComponent,
-                title: "Loại sản phẩm"
+                path: "add",
+                component: AddProductComponent,
+                title: "Thêm sản phẩm"
             }
         ]
+    },
+    {
+        path: "category",
+        component: CategoryComponent,
+        title: 'Loại sản phẩm'
     }
 ];

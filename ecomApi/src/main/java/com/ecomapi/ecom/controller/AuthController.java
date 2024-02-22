@@ -2,6 +2,7 @@ package com.ecomapi.ecom.controller;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,26 +43,27 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
+        
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getEmail(),
-                authenticationRequest.getPassword()));
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword());
+            authenticationManager.authenticate(authToken).isAuthenticated();
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Email hoặc mật khẩu không đúng");
-        } finally {
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-            Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
-            final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-            if(optionalUser.isPresent()) {
-                response.getWriter().write(new JSONObject()
-                    .put("userId", optionalUser.get().getId())
-                    .put("userFullname", optionalUser.get().getFullname())
-                    .put("role", optionalUser.get().getRole())
-                    .toString());
-                response.addHeader("Access-Control-Expose-Headers", "Authorization");
-                response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
-                response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
-            }
+        } 
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+        Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        if(optionalUser.isPresent()) {
+            response.getWriter().write(new JSONObject()
+                .put("userId", optionalUser.get().getId())
+                .put("userFullname", optionalUser.get().getFullname())
+                .put("role", optionalUser.get().getRole())
+                .put("image", optionalUser.get().getImg())
+                .toString());
+            response.addHeader("Access-Control-Expose-Headers", "Authorization");
+            response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
+            response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         }
     }
 
