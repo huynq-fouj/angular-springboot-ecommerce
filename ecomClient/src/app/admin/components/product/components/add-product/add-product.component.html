@@ -2,18 +2,23 @@
     <h2>Thêm sản phẩm mới</h2>
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div class="mb-3 file-upload-container">
-            <div class="image-preview">
-                <div class="image-container">
-                    @if(selectedFile) {
-                        <img [src]="imagePreview" alt="">
-                    }
-                </div>
-            </div>
-            <label class="">
-                <span>Chọn file</span>
-                <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+            <div class="input-upload">
+                <input type="file" (change)="fileChangeEvent($event)">
                 <mat-icon>attach_file</mat-icon>
-            </label>
+                <image-cropper
+                    [imageChangedEvent]="imageChangeEvent"
+                    [maintainAspectRatio]="true"
+                    [resizeToWidth]="300"
+                    [resizeToHeight]="300"
+                    [aspectRatio]="1/1" 
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+            </div>
+            <img [src]="imagePreview" alt="">
         </div>
         <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
             <label for="categorySelection" class="font-bold sm:w-40">Chọn thể loại</label>

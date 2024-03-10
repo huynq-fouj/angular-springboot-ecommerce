@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { DecodeHtmlEntitiesPipe } from "../../../../../shared/pipes/decode-html-entities.pipe";
 import { AdminCategoryService } from '../../../../services/category/admin-category.service';
 import { MatButtonModule } from '@angular/material/button';
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-add-product',
@@ -22,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
         MatIconModule,
         DecodeHtmlEntitiesPipe,
         MatButtonModule,
+        ImageCropperModule
     ]
 })
 export class AddProductComponent implements OnInit{
@@ -29,15 +32,16 @@ export class AddProductComponent implements OnInit{
   productForm !: FormGroup;
   isLoad: boolean = false;
   categories: Category[] = [];
-  selectedFile ?: File | null;
-  imagePreview ?: string | ArrayBuffer | null;
+  imageChangeEvent : any;
+  imagePreview: any = "";
 
   constructor(
     private toast: HotToastService,
     private productService: AdminProductService,
     private categoryService: AdminCategoryService,
     private route: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -62,21 +66,6 @@ export class AddProductComponent implements OnInit{
      });
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    this.previewImage();
-  }
-
-  previewImage() {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    }
-    if(this.selectedFile) {
-      reader.readAsDataURL(this.selectedFile);
-    }
-  }
-
   onSubmit() {
     this.isLoad = true;
 
@@ -90,5 +79,19 @@ export class AddProductComponent implements OnInit{
   errorHandler(error: any) {
     this.toast.error("Thêm mới không thành công");
   }
+
+  fileChangeEvent(event : any) {
+    this.imageChangeEvent = event
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+      this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl ?? "");
+  }
+
+  imageLoaded() {}
+
+  cropperReady() {}
+
+  loadImageFailed() {}
 
 }
