@@ -1,0 +1,24 @@
+<div class="bg-white w-80 sm:w-[420px] md:w-[480px] rounded-lg">
+    <p class=" relative w-ful p-3 font-bold border-b-[1px]">Cắt ảnh sản phẩm của bạn<span class="absolute right-3 cursor-pointer" (click)="dialogRef.close()">✕</span></p>
+    <div class="p-1 max-h-80 overflow-y-auto">
+        <image-cropper
+            [imageChangedEvent]="imageChangeEvent"
+            [maintainAspectRatio]="true"
+            [resizeToWidth]="300"
+            [resizeToHeight]="300"
+            [aspectRatio]="1/1" 
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+            class="!p-0 !m-0 !w-full"
+        ></image-cropper>
+    </div>
+    <div class="border-t-[1px] p-2 mt-2">
+        <button
+            mat-flat-button
+            (click)="handleCropped()"
+            class="!bg-indigo-600 !text-white w-full">Xác nhận</button>
+    </div>
+</div>

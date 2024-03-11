@@ -9,8 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { DecodeHtmlEntitiesPipe } from "../../../../../shared/pipes/decode-html-entities.pipe";
 import { AdminCategoryService } from '../../../../services/category/admin-category.service';
 import { MatButtonModule } from '@angular/material/button';
-import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialogModule } from '@angular/material/dialog';
+import { Dialog } from '@angular/cdk/dialog';
+import { CropImageDialogComponent } from '../../../../../components/crop-image-dialog/crop-image-dialog.component';
 
 @Component({
     selector: 'app-add-product',
@@ -24,7 +27,7 @@ import { DomSanitizer } from '@angular/platform-browser';
         MatIconModule,
         DecodeHtmlEntitiesPipe,
         MatButtonModule,
-        ImageCropperModule
+        MatDialogModule
     ]
 })
 export class AddProductComponent implements OnInit{
@@ -41,7 +44,8 @@ export class AddProductComponent implements OnInit{
     private categoryService: AdminCategoryService,
     private route: Router,
     private fb: FormBuilder,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog: Dialog
   ) {}
 
   ngOnInit(): void {
@@ -81,17 +85,30 @@ export class AddProductComponent implements OnInit{
   }
 
   fileChangeEvent(event : any) {
-    this.imageChangeEvent = event
+    this.imageChangeEvent = event;
+    if(event.target.files[0]) {
+      let dialogRef = this.dialog.open<ImageCroppedEvent>(CropImageDialogComponent, {
+        data: event
+      });
+
+      console.log(dialogRef)
+      
+      dialogRef.closed.subscribe({
+        next: result => {
+          console.log(result);
+          if(result) this.handleImageCropped(result);
+        },
+        error: err => { console.log(err) },
+        complete: () => {
+          event.target.value = '';
+        }
+      });
+    }
+
   }
 
-  imageCropped(event: ImageCroppedEvent) {
+  handleImageCropped(event: ImageCroppedEvent) {
       this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl ?? "");
   }
-
-  imageLoaded() {}
-
-  cropperReady() {}
-
-  loadImageFailed() {}
 
 }

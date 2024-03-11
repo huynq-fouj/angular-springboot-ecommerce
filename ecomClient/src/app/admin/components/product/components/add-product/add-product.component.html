@@ -5,18 +5,6 @@
             <div class="input-upload">
                 <input type="file" (change)="fileChangeEvent($event)">
                 <mat-icon>attach_file</mat-icon>
-                <image-cropper
-                    [imageChangedEvent]="imageChangeEvent"
-                    [maintainAspectRatio]="true"
-                    [resizeToWidth]="300"
-                    [resizeToHeight]="300"
-                    [aspectRatio]="1/1" 
-                    format="png"
-                    (imageCropped)="imageCropped($event)"
-                    (imageLoaded)="imageLoaded()"
-                    (cropperReady)="cropperReady()"
-                    (loadImageFailed)="loadImageFailed()"
-                ></image-cropper>
             </div>
             <img [src]="imagePreview" alt="">
         </div>
