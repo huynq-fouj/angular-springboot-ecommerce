@@ -14,9 +14,9 @@ import com.ecomapi.ecom.entity.Category;
 import com.ecomapi.ecom.entity.Product;
 import com.ecomapi.ecom.repository.CategoryRepository;
 import com.ecomapi.ecom.repository.ProductRespository;
+import com.ecomapi.ecom.services.storage.StorageService;
 import com.ecomapi.ecom.utils.DateUtil;
 import com.ecomapi.ecom.utils.JerichoUtil;
-import com.ecomapi.ecom.utils.UploadUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRespository productRespository;
     private final CategoryRepository categoryRepository;
+    private final StorageService storageService;
 
     public ProductDto addProduct(ProductDto productDto) throws IOException {
         Product product = new Product();
@@ -36,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCreated_at(DateUtil.getDate());
         product.setUpdated_at(DateUtil.getDate());
         Category category = categoryRepository.findById(productDto.getCategory_id()).orElseThrow();
-        product.setImage(UploadUtil.uploadImg(productDto.getImgMultipartFile()));
+        product.setImage(storageService.save(productDto.getImgMultipartFile()));
         product.setCategory(category);
         return productRespository.save(product).getDto();
     }

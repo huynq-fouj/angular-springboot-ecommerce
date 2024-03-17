@@ -32,6 +32,8 @@ public class Product {
 
     private Long price;
 
+    private Long quantity;
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
@@ -63,6 +65,7 @@ public class Product {
         productDto.setUpdated_at(updated_at);
         productDto.setDeleted(deleted);
         productDto.setPrice(price);
+        productDto.setQuantity(quantity);
 
         return productDto;
     }
