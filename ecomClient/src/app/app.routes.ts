@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AdminComponent } from './admin/admin.component';
-import { HomeComponent } from './customer/components/home/home.component';
+import { AccessErrorComponent } from './error/access-error/access-error.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +26,11 @@ export const routes: Routes = [
         path: "admin",
         component: AdminComponent,
         loadChildren: () => import("./admin/admin.routes").then(m => m.ADMIN_ROUTES)
+    },
+    {
+        path: "access-error",
+        component: AccessErrorComponent,
+        title: "Không có quyền hạn"
     },
     {
         path: "**",

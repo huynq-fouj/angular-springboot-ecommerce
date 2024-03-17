@@ -1,49 +1,82 @@
 <div class="p-5 bg-white rounded-lg">
     <h2>Thêm sản phẩm mới</h2>
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3 file-upload-container">
-            <div class="input-upload">
-                <input type="file" (change)="fileChangeEvent($event)">
-                <mat-icon>attach_file</mat-icon>
+        <div class="sm:flex w-full sm:flex-row-reverse sm:justify-end">
+            <!-- Upload container -->
+            <div class="mb-3 file-upload-container left-place">
+                <p class="text-xs text-gray-500"><i>Tải hình ảnh từ thiết bị.</i></p>
+                <div class="image-preview-container relative w-52 h-52 flex justify-center items-center border">
+                    <img
+                        src="assets/images/default-img.jpg" 
+                        class="absolute object-cover z-0 min-h-full min-w-full"
+                        alt="">
+                    @if (imagePreview) {
+                        <img
+                            [src]="imagePreview"
+                            class="w-full absolute z-10"
+                            alt="">
+                    }
+                </div>
+                <div class="btn-upload mt-5">
+                    <input 
+                        type="file"
+                        (change)="fileChangeEvent($event)"
+                        class="hidden"
+                        id="inputUploadFile">
+                    <label
+                        for="inputUploadFile"
+                        class="rounded-md border px-4 py-2">
+                        Chọn ảnh
+                    </label>
+                </div>
             </div>
-            <img [src]="imagePreview" alt="">
-        </div>
-        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
-            <label for="categorySelection" class="font-bold sm:w-40">Chọn thể loại</label>
-            <select formControlName="category_id"
-                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                id="categorySelection">
-                <option [value]="0">Vui lòng chọn</option>
-                @for (item of categories; track item.id) {
-                    <option [value]="item.id" [innerHTML]="item.name | decodeHtmlEntities"></option>
-                }
-            </select>
-        </div>
-        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
-            <label for="productName" class="font-bold sm:w-40">Tên sản phẩm</label>
-            <input type="text"
-                formControlName="name"
-                id="productName"
-                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
-        </div>
-        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
-            <label for="productPrice" class="font-bold sm:w-40">Đơn giá</label>
-            <input type="text"
-                formContName="price"
-                id="productPrice"
-                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
-        </div>
-        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
-            <label for="productDescription" class="font-bold sm:w-40">Mô tả</label>
-            <textarea
-                formControlName="description"
-                id="productDescription"
-                placeholder="Nội dung"
-                class="p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-            <button mat-raised-button color="primary" type="submit">Thêm mới</button>
+            <!-- End upload container -->
+            <div class="right-place sm:w-[450px] sm:mr-10">
+                <div class="mb-3 flex flex-col">
+                    <label for="categorySelection" class="font-bold mb-2">Chọn thể loại</label>
+                    <select formControlName="category_id"
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        id="categorySelection">
+                        <option [value]="0">Vui lòng chọn</option>
+                        @for (item of categories; track item.id) {
+                            <option [value]="item.id" [innerHTML]="item.name | decodeHtmlEntities"></option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3 flex flex-col">
+                    <label for="productName" class="font-bold mb-2">Tên sản phẩm</label>
+                    <input type="text"
+                        formControlName="name"
+                        id="productName"
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div class="mb-3 flex flex-col">
+                    <label for="productPrice" class="font-bold mb-2">Đơn giá</label>
+                    <input type="text"
+                        formContName="price"
+                        id="productPrice"
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div class="mb-3 flex flex-col">
+                    <label for="productQuantity" class="font-bold mb-2">Số lượng</label>
+                    <input type="text"
+                        formContName="quantity"
+                        id="productQuantity"
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div class="mb-3 flex flex-col">
+                    <label for="productDescription" class="font-bold mb-2">Mô tả</label>
+                    <textarea
+                        formControlName="description"
+                        id="productDescription"
+                        placeholder="Nội dung"
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <button mat-raised-button color="primary" type="submit">Thêm mới</button>
+                </div>
+            </div>
         </div>
     </form>
 </div>

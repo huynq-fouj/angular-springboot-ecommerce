@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { SignupRequest } from '../../interface/SignupRequest';
-import { LoginRequest } from '../../interface/LoginRequest';
+import { SignupRequest } from '../../interfaces/SignupRequest';
+import { LoginRequest } from '../../interfaces/LoginRequest';
 
 @Injectable({
   providedIn: 'root'

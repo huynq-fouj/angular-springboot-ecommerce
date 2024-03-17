@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Category } from '../../../shared/interface/Category';
+import { Category } from '../../../shared/interfaces/Category';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AdminService } from '../admin.service';

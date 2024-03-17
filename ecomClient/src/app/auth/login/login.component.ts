@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { UserStorageService } from '../shared/services/user-storage/user-storage.service';
+import { UserStorageService } from '../../shared/services/user-storage/user-storage.service';
 
 @Component({
   selector: 'app-login',

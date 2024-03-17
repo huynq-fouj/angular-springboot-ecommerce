@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../../../../../shared/interface/Category';
+import { Category } from '../../../../../shared/interfaces/Category';
 import { AdminCategoryService } from '../../../../services/category/admin-category.service';
 import { DecodeHtmlEntitiesPipe } from "../../../../../shared/pipes/decode-html-entities.pipe";
 

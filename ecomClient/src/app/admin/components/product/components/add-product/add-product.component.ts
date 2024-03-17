@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HotToastService } from '@ngneat/hot-toast';
 import { AdminProductService } from '../../../../services/product/admin-product.service';
 import { Router } from '@angular/router';
-import { Category } from '../../../../../shared/interface/Category';
+import { Category } from '../../../../../shared/interfaces/Category';
 import { MatIconModule } from '@angular/material/icon';
 import { DecodeHtmlEntitiesPipe } from "../../../../../shared/pipes/decode-html-entities.pipe";
 import { AdminCategoryService } from '../../../../services/category/admin-category.service';
@@ -13,7 +13,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Dialog } from '@angular/cdk/dialog';
-import { CropImageDialogComponent } from '../../../../../components/crop-image-dialog/crop-image-dialog.component';
+import { CropImageDialogComponent } from '../../../../../shared/components/crop-image-dialog/crop-image-dialog.component';
 
 @Component({
     selector: 'app-add-product',
@@ -53,7 +53,8 @@ export class AddProductComponent implements OnInit{
         category_id: [0, [Validators.required]],
         name: ["", [Validators.required]],
         description: ["", [Validators.required]],
-        price: ["", [Validators.required]]
+        price: ["", [Validators.required]],
+        quantity: [0, Validators.required]
       });
 
       this.getAllCategories();

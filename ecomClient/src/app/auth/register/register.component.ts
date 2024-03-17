@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
