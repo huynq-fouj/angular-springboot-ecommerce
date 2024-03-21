@@ -25,7 +25,7 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
         googleIcon: 'group',
         children: [
             {
-                url: '/admin/user',
+                url: '/admin/users',
                 label: 'Danh sách',
                 googleIcon: 'fiber_manual_record'
             },
@@ -37,24 +37,33 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
         googleIcon: 'inventory_2',
         children: [
             {
-                url: '/admin/product',
+                url: '/admin/products',
                 label: 'Danh sách',
                 googleIcon: 'fiber_manual_record'
             },
             {
-                url: '/admin/product/add',
+                url: '/admin/products/add',
                 label: 'Thêm sản phẩm',
                 googleIcon: 'fiber_manual_record'
             },
             {
-                url: '/admin/category',
+                url: '/admin/categories',
                 label: 'Loại sản phẩm',
                 googleIcon: 'fiber_manual_record'
             },
         ]
     },
     {
-        url: '/admin/contact',
+        label: 'Đơn hàng',
+        notRedirect: true,
+        children: [
+            {
+                label: 'Danh sách'
+            }
+        ]
+    },
+    {
+        url: '/admin/contacts',
         label: 'Liên hệ'
     },
 ]

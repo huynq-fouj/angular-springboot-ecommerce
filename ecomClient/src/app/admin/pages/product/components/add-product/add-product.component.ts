@@ -32,11 +32,12 @@ import { CropImageDialogComponent } from '../../../../../shared/components/crop-
 })
 export class AddProductComponent implements OnInit{
 
-  productForm !: FormGroup;
+  productForm!: FormGroup;
   isLoad: boolean = false;
   categories: Category[] = [];
   imageChangeEvent : any;
   imagePreview: any = "";
+  file!: File;
 
   constructor(
     private toast: HotToastService,
@@ -53,26 +54,33 @@ export class AddProductComponent implements OnInit{
         category_id: [0, [Validators.required]],
         name: ["", [Validators.required]],
         description: ["", [Validators.required]],
-        price: ["", [Validators.required]],
-        quantity: [0, Validators.required]
+        price: [null, [Validators.required, Validators.pattern('[0-9]+')]],
+        quantity: [null, [Validators.required, Validators.pattern('[0-9]+')]]
       });
 
+      //Lấy danh sách danh mục
       this.getAllCategories();
   }
 
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe({
-      next: data => {
-        this.categories = data;
-      },
-      error: error => {
-        console.log(error);
-      }
-     });
+      next: data => this.categories = data
+    });
   }
 
   onSubmit() {
     this.isLoad = true;
+    //this.productForm.addControl("imgMultipartFile", this.file);
+    const productRequest = this.productForm.value;
+    console.log(productRequest);
+
+    this.productService.addProduct(productRequest).subscribe({
+      next: res => this.successHandler(res),
+      error: err => this.errorHandler(err),
+      complete: () => {}
+    }).add(() => {
+      this.isLoad = false;
+    })
 
   }
 
@@ -82,6 +90,7 @@ export class AddProductComponent implements OnInit{
   }
 
   errorHandler(error: any) {
+    console.log(error);
     this.toast.error("Thêm mới không thành công");
   }
 
@@ -92,11 +101,8 @@ export class AddProductComponent implements OnInit{
         data: event
       });
 
-      console.log(dialogRef)
-      
       dialogRef.closed.subscribe({
         next: result => {
-          console.log(result);
           if(result) this.handleImageCropped(result);
         },
         error: err => { console.log(err) },
@@ -109,7 +115,8 @@ export class AddProductComponent implements OnInit{
   }
 
   handleImageCropped(event: ImageCroppedEvent) {
-      this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl ?? "");
+      this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
+      console.log(event.blob);
   }
 
 }

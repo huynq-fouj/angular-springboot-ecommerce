@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Category } from '../../../shared/interfaces/Category';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AdminService } from '../admin.service';
+import { HeaderService } from '../../../shared/services/header/header.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +14,30 @@ export class AdminCategoryService {
 
   constructor(
     private http: HttpClient,
-    private adminService: AdminService
+    private headerService: HeaderService
     ) { }
 
   addCategory(category: Category) : Observable<any> {
     return this.http.post(`${this.apiUrl}api/admin/category`, category, {
-      headers: this.adminService.createAuthorizationHeader(),
+      headers: this.headerService.createAuthorizationHeader(),
     });
   }
 
   getAllCategories() : Observable<any> {
     return this.http.get<Category[]>(`${this.apiUrl}api/admin/categories`, {
-      headers: this.adminService.createAuthorizationHeader(),
+      headers: this.headerService.createAuthorizationHeader(),
     });
   }
 
   deleteCategory(id: number) : Observable<any> {
     return this.http.delete(`${this.apiUrl}api/admin/category/${id}`, {
-      headers: this.adminService.createAuthorizationHeader(),
+      headers: this.headerService.createAuthorizationHeader(),
     })
   }
 
   updateCategory(category: Category) : Observable<any> {
     return this.http.put(`${this.apiUrl}api/admin/category`, category, {
-      headers: this.adminService.createAuthorizationHeader(),
+      headers: this.headerService.createAuthorizationHeader(),
     })
   }
 

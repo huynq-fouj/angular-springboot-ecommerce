@@ -1,11 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserStorageService } from '../../shared/services/user-storage/user-storage.service';
+import { UserStorageService } from '../user-storage/user-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService {
+export class HeaderService {
 
   constructor() { }
 

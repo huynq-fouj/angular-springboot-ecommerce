@@ -1,10 +1,11 @@
 import { Routes } from "@angular/router";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { UserComponent } from "./components/user/user.component";
-import { ProductComponent } from "./components/product/product.component";
-import { ProductListComponent } from "./components/product/components/product-list/product-list.component";
-import { CategoryComponent } from "./components/category/category.component";
-import { AddProductComponent } from "./components/product/components/add-product/add-product.component";
+import { DashboardComponent } from "./pages/dashboard/dashboard.component";
+import { UserComponent } from "./pages/user/user.component";
+import { ProductComponent } from "./pages/product/product.component";
+import { ProductListComponent } from "./pages/product/components/product-list/product-list.component";
+import { CategoryComponent } from "./pages/category/category.component";
+import { AddProductComponent } from "./pages/product/components/add-product/add-product.component";
+import { ProductDetailComponent } from "./pages/product/components/product-detail/product-detail.component";
 
 
 export const ADMIN_ROUTES : Routes = [
@@ -14,18 +15,23 @@ export const ADMIN_ROUTES : Routes = [
         title: "Dashboard",
     },
     {
-        path: "user",
+        path: "users",
         component: UserComponent,
         title: "Người dùng"
     },
     {
-        path: "product",
+        path: "products",
         component: ProductComponent,
         children: [
             {
                 path: "",
                 component: ProductListComponent,
                 title: "Danh sách sản phẩm"
+            },
+            {
+                path: "details/:id",
+                component: ProductDetailComponent,
+                title: "Chi tiết sản phẩm",
             },
             {
                 path: "add",
@@ -35,7 +41,7 @@ export const ADMIN_ROUTES : Routes = [
         ]
     },
     {
-        path: "category",
+        path: "categories",
         component: CategoryComponent,
         title: 'Loại sản phẩm'
     }
