@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ProductRequest } from '../../../shared/interfaces/ProductRequest';
 import { HeaderService } from '../../../shared/services/header/header.service';
+import { Product } from '../../../shared/interfaces/Product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminProductService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = `${environment.apiUrl}api/admin/products`;
 
   constructor(
     private headerService: HeaderService,
@@ -18,22 +19,29 @@ export class AdminProductService {
   ) { }
 
   addProduct(product: ProductRequest) : Observable<any> {
-    return this.http.post(`${this.apiUrl}api/admin/product`, product, {
+    return this.http.post(this.apiUrl, product, {
       headers: this.headerService.createAuthorizationHeader(),
     })
   }
 
-  // deleteProduct(id: number) : Observable<any> {
+  deleteProduct(id: number) : Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`, {
+        headers: this.headerService.createAuthorizationHeader()
+      }
+    );
+  }
 
-  // }
+  updateProduct(product: Product) : Observable<any> {
+    return this.http.put(`${this.apiUrl}/${product.product_id}`, product, {
+      headers: this.headerService.createAuthorizationHeader()
+    });
+  }
 
-  // updateProduct(product: Product) : Observable<any> {
-    
-  // }
-
-  // getProduct(id: number) : Observable<any> {
-    
-  // }
+  getProduct(id: number) : Observable<any> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`,{
+      headers: this.headerService.createAuthorizationHeader()
+    });
+  }
 
   // getProducts() : Observable<any> {
     
