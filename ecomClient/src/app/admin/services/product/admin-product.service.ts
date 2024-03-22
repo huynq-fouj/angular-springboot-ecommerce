@@ -19,6 +19,7 @@ export class AdminProductService {
   ) { }
 
   addProduct(product: ProductRequest) : Observable<any> {
+    console.log(product);
     return this.http.post(this.apiUrl, product, {
       headers: this.headerService.createAuthorizationHeader(),
     })
@@ -31,8 +32,8 @@ export class AdminProductService {
     );
   }
 
-  updateProduct(product: Product) : Observable<any> {
-    return this.http.put(`${this.apiUrl}/${product.product_id}`, product, {
+  updateProduct(product: ProductRequest) : Observable<any> {
+    return this.http.put(`${this.apiUrl}/${product.id}`, product, {
       headers: this.headerService.createAuthorizationHeader()
     });
   }

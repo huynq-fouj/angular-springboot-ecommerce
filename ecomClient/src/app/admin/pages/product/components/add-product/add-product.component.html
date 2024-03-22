@@ -49,21 +49,45 @@
                     <input type="text"
                         formControlName="name"
                         id="productName"
-                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        [ngClass]="productForm.get('name')?.invalid && productForm.get('name')?.touched ? 'placeholder:text-red-500 ring-1 ring-red-500' : ''"
+                        required>
+                    <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+                        class="text-red-500
+                            text-xs
+                            mt-0.5">
+                            Vui lòng nhập tên sản phẩm hợp lệ.
+                    </div>
                 </div>
                 <div class="mb-3 flex flex-col">
                     <label for="productPrice" class="font-bold mb-2">Đơn giá</label>
                     <input type="text"
                         formControlName="price"
                         id="productPrice"
-                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        [ngClass]="productForm.get('price')?.invalid && productForm.get('price')?.touched ? 'placeholder:text-red-500 ring-1 ring-red-500' : ''"
+                        required>
+                    <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+                        class="text-red-500
+                            text-xs
+                            mt-0.5">
+                            Vui lòng nhập giá hợp lệ.
+                    </div>
                 </div>
                 <div class="mb-3 flex flex-col">
                     <label for="productQuantity" class="font-bold mb-2">Số lượng</label>
                     <input type="text"
                         formControlName="quantity"
                         id="productQuantity"
-                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        class="max-w-[450px] p-2 border w-full rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        [ngClass]="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched ? 'placeholder:text-red-500 ring-1 ring-red-500' : ''"
+                        required>
+                    <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched"
+                        class="text-red-500
+                            text-xs
+                            mt-0.5">
+                            Vui lòng nhập tên sản hợp lệ.
+                    </div>
                 </div>
                 <div class="mb-3 flex flex-col">
                     <label for="productDescription" class="font-bold mb-2">Mô tả</label>
@@ -75,7 +99,12 @@
                         rows="5"></textarea>
                 </div>
                 <div class="mb-3">
-                    <button mat-raised-button color="primary" type="submit">Thêm mới</button>
+                    <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [ngClass]="(isLoad) ? 'cursor-not-allowed' : ''"
+                        [disabled]="isLoad"
+                        >Thêm mới</button>
                 </div>
             </div>
         </div>

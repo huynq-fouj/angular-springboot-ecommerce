@@ -1,8 +1,10 @@
 export interface ProductRequest {
-    category_id:number,
-    name: string,
-    description: string,
-    price: number,
-    quantity: number,
-    imgMultipartFile ?: File
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    deleted: boolean;
+    imgMultipartFile: File;
+    category_id:number;
 }

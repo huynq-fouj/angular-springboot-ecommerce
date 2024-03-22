@@ -53,7 +53,7 @@ export class AddProductComponent implements OnInit{
       this.productForm = this.fb.group({
         category_id: [0, [Validators.required]],
         name: ["", [Validators.required]],
-        description: ["", [Validators.required]],
+        description: [""],
         price: [null, [Validators.required, Validators.pattern('[0-9]+')]],
         quantity: [null, [Validators.required, Validators.pattern('[0-9]+')]]
       });
@@ -70,9 +70,24 @@ export class AddProductComponent implements OnInit{
 
   onSubmit() {
     this.isLoad = true;
-    //this.productForm.addControl("imgMultipartFile", this.file);
-    const productRequest = this.productForm.value;
-    console.log(productRequest);
+
+    const { category_id } = this.productForm.value;
+    if(category_id == 0) {
+      this.toast.error("Vui lòng chọn thể loại sản phẩm!");
+      this.isLoad = false;
+      return;
+    }
+
+    if(this.productForm.invalid) {
+      this.toast.error("Vui lòng nhập đầy đủ thông tin cần thiết!");
+      this.isLoad = false;
+      return;
+    }
+
+    const productRequest = {
+      ...this.productForm.value,
+      imgMultipartFile: this.file
+    }
 
     this.productService.addProduct(productRequest).subscribe({
       next: res => this.successHandler(res),
@@ -80,7 +95,7 @@ export class AddProductComponent implements OnInit{
       complete: () => {}
     }).add(() => {
       this.isLoad = false;
-    })
+    });
 
   }
 
@@ -100,7 +115,7 @@ export class AddProductComponent implements OnInit{
       let dialogRef = this.dialog.open<ImageCroppedEvent>(CropImageDialogComponent, {
         data: event
       });
-
+      //Lấy kết quả sau khi cắt ảnh xong 
       dialogRef.closed.subscribe({
         next: result => {
           if(result) this.handleImageCropped(result);
@@ -116,7 +131,7 @@ export class AddProductComponent implements OnInit{
 
   handleImageCropped(event: ImageCroppedEvent) {
       this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
-      console.log(event.blob);
+      this.file = new File([event.blob ?? ''], this.imagePreview.name,{lastModified: this.imagePreview.lastModified, type: this.imagePreview.type});
   }
 
 }
