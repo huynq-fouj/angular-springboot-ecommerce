@@ -56,6 +56,7 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
     {
         label: 'Đơn hàng',
         notRedirect: true,
+        googleIcon: 'sell',
         children: [
             {
                 label: 'Danh sách'
