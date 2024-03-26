@@ -1,13 +1,7 @@
 export interface SidebarLink {
     url ?: string;
     label : string;
-    /**
-     * Code html để hiển thị icon
-     */
     icon ?: string;
-    /**
-     * Dùng tên icon của google
-     */
     googleIcon ?: string;
     notRedirect ?: boolean;
     children ?: Array<SidebarLink>;
@@ -27,7 +21,7 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
             {
                 url: '/admin/users',
                 label: 'Danh sách',
-                googleIcon: 'fiber_manual_record'
+                googleIcon: 'patient_list'
             },
         ]
     },
@@ -39,17 +33,17 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
             {
                 url: '/admin/products',
                 label: 'Danh sách',
-                googleIcon: 'fiber_manual_record'
+                googleIcon: 'view_list'
             },
             {
                 url: '/admin/products/add',
                 label: 'Thêm sản phẩm',
-                googleIcon: 'fiber_manual_record'
+                googleIcon: 'add_box'
             },
             {
                 url: '/admin/categories',
                 label: 'Loại sản phẩm',
-                googleIcon: 'fiber_manual_record'
+                googleIcon: 'category'
             },
         ]
     },
@@ -59,12 +53,20 @@ export const SIDEBAR_LINKS : Array<SidebarLink> = [
         googleIcon: 'sell',
         children: [
             {
-                label: 'Danh sách'
-            }
+                url: '/admin/bills',
+                label: 'Danh sách',
+                googleIcon: 'view_list',
+            },
+            {
+                url: '/admin/bills/trash',
+                label: 'Đơn hàng đã xóa',
+                googleIcon: 'delete_sweep'
+            },
         ]
     },
     {
         url: '/admin/contacts',
-        label: 'Liên hệ'
+        label: 'Liên hệ',
+        googleIcon: 'chat_bubble'
     },
 ]
